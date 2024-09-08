@@ -15,8 +15,8 @@ public static class CryptoSquare
         }
         var normalized = NormalizedPlaintext(plaintext);
 
-        var rows = Rows(normalized.Length);
         var cols = Cols(normalized.Length);
+        var rows = Rows(normalized.Length, cols);
 
         var missing = cols * rows - normalized.Length;
         normalized += new string(' ', missing);
@@ -47,12 +47,13 @@ public static class CryptoSquare
     public static string Ciphertext(string plaintext)
     {
         var encoded = Encoded(plaintext);
-        var rows = Rows(encoded.Length);
+        var cols = Cols(encoded.Length);
+        var rows = Rows(encoded.Length, cols);
 
         return string.Join(" ",
-            Enumerable.Range(0, Cols(encoded.Length)).Select(i => encoded.Substring(i * rows, Math.Min(rows, encoded.Length - i * rows))));
+            Enumerable.Range(0, cols).Select(i => encoded.Substring(i * rows, Math.Min(rows, encoded.Length - i * rows))));
     }
 
     private static int Cols(int length) => (int)Math.Ceiling(Math.Sqrt(length));
-    private static int Rows(int length) => (int)Math.Ceiling((double)length / Cols(length));
+    private static int Rows(int length, int? cols = null) => (int)Math.Ceiling((double)length / cols ?? Cols(length));
 }
