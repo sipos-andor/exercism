@@ -39,7 +39,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run: cd javascript/
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
@@ -48,6 +47,7 @@ jobs:
         cache-dependency-path: javascript/package-lock.json
     - name: Run npm in subfolders
       run: |
+          cd javascript/
           for dir in $(find . -type d -name 'node_modules' -prune -o -type d -print); do
           if [ -f "$dir/package.json" ]; then
               echo "Running npm install in $dir"
