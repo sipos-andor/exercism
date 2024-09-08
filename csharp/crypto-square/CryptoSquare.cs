@@ -26,7 +26,7 @@ public static class CryptoSquare
     public static string Encoded(string plaintext)
     {
         var segments = PlaintextSegments(plaintext).ToArray();
-        if (segments is null || segments.Length == 0)
+        if (segments is null || segments.Length == 0) 
         {
             return string.Empty;
         }
@@ -34,14 +34,13 @@ public static class CryptoSquare
 
         for (var i = 0; i < segments.Length; i++)
         {
-            var segmentLenght = segments[i].Length;
-            for (int j = 0; j < segmentLenght; j++)
+            for (int j = 0; j < segments[i].Length; j++)
             {
                 coded[j * segments.Length + i] = segments[i][j];
             }
         }
 
-        return new string(coded).Replace((char)0, (char)32);
+        return new string(coded);
     }
 
     public static string Ciphertext(string plaintext)
