@@ -1,53 +1,47 @@
 using System;
 
-public struct ComplexNumber
+public readonly struct ComplexNumber(double real, double imaginary)
 {
-    private double real;
-    private double imaginary;
+    private readonly double real = real;
+    private readonly double imaginary = imaginary;
 
-    public ComplexNumber(double real, double imaginary)
-    {
-        this.real = real;
-        this.imaginary = imaginary;
-    }
-
-    public double Real() => real;
-    public double Imaginary() => imaginary;
+    public readonly double Real() => real;
+    public readonly double Imaginary() => imaginary;
 
     public ComplexNumber Mul(ComplexNumber other)
-        => new ComplexNumber(real * other.real - imaginary * other.imaginary,
+        => new(real * other.real - imaginary * other.imaginary,
                             imaginary * other.real + real * other.imaginary);
 
     public ComplexNumber Mul(double mulReal)
-        => new ComplexNumber(real * mulReal, imaginary * mulReal);
+        => new(real * mulReal, imaginary * mulReal);
 
     public ComplexNumber Add(ComplexNumber other)
-        => new ComplexNumber(real + other.real, imaginary + other.imaginary);
+        => new(real + other.real, imaginary + other.imaginary);
 
     public ComplexNumber Add(double addReal)
         => Add(new ComplexNumber(addReal, 0));
 
     public ComplexNumber Sub(ComplexNumber other)
-         => new ComplexNumber(real - other.real, imaginary - other.imaginary);
+         => new(real - other.real, imaginary - other.imaginary);
 
     public ComplexNumber Sub(double subReal)
-         => new ComplexNumber(real - subReal, imaginary);
+         => new(real - subReal, imaginary);
 
     public ComplexNumber Div(ComplexNumber other)
     {
         var denominator = Math.Pow(other.real, 2) + Math.Pow(other.imaginary, 2);
-        return new ComplexNumber((real * other.real + imaginary * other.imaginary) / denominator,
+        return new((real * other.real + imaginary * other.imaginary) / denominator,
                                  (imaginary * other.real - real * other.imaginary) / denominator);
     }
     public ComplexNumber Div(double divReal) =>
-        new ComplexNumber(real / divReal, imaginary / divReal);
+        new(real / divReal, imaginary / divReal);
 
     public double Abs() => Math.Sqrt(Math.Pow(real, 2) + Math.Pow(imaginary, 2));
-    public ComplexNumber Conjugate() => new ComplexNumber(real, -imaginary);
+    public ComplexNumber Conjugate() => new(real, -imaginary);
     public ComplexNumber Exp()
     {
         var expReal = Math.Pow(Math.E, real);
-        return new ComplexNumber(expReal * Math.Cos(imaginary),
+        return new(expReal * Math.Cos(imaginary),
                             expReal * Math.Sin(imaginary));
     }
 }
