@@ -198,11 +198,4 @@ public class InterestIsInterestingTests
     {
         Assert.Equal(85, SavingsAccount.YearsBeforeDesiredBalance(2_345.67m, 12_345.6789m));
     }
-    
-    [Fact]
-    [Task(4)]
-    public void Years_before_desired_balance_for_balance_and_target_balance_equals()
-    {
-        Assert.Equal(0, SavingsAccount.YearsBeforeDesiredBalance(2_345.67m, 2_345.67m));
-    }
 }

@@ -36,7 +36,4 @@ public static class PerfectNumbers
                 return Classification.Perfect;
         }
     }
-    // public static Classification Classify(int number) =>
-    //        (Classification)Enumerable.Range(1, number - 1).Where(x => number % x == 0).Sum().CompareTo(number);
-
 }

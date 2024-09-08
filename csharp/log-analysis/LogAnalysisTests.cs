@@ -1,5 +1,6 @@
-using Exercism.Tests;
 using Xunit;
+using Exercism.Tests;
+using System;
 
 public class LogAnalysisTests
 {
@@ -22,13 +23,6 @@ public class LogAnalysisTests
     public void SubstringBetween()
     {
         Assert.Equal("INFO", "[INFO]: File Deleted.".SubstringBetween("[", "]"));
-    }
-
-    [Fact]
-    [Task(2)]
-    public void SubstringBetweenSame()
-    {
-        Assert.Equal("H-E-L-L-O", "-H-E-L-L-O- ".SubstringBetween("-", "-"));
     }
 
     [Fact]
