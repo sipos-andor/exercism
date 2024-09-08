@@ -46,8 +46,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: javascript/package-lock.json
-    - run: npm ci
-    - run: npm run build --if-present
     - name: Run npm in subfolders
       run: |
           for dir in $(find . -type d -name 'node_modules' -prune -o -type d -print); do
