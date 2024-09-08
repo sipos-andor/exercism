@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 public static class RealNumberExtension
 {
     public static double Expreal(this int realNumber, RationalNumber r)
@@ -13,8 +11,8 @@ public struct RationalNumber
     private int numerator;
     private int? gcd;
 
-    public int Numerator => numerator;
-    public int Denominator => denominator;
+    public readonly int Numerator => numerator;
+    public readonly int Denominator => denominator;
     public int GCD
     {
         //Binary GCD algorithm
@@ -55,7 +53,7 @@ public struct RationalNumber
                           can be done in-place. */
                     if (n > d)
                     {
-                        int t = d; d = n; n = t; // Swap u and v.
+                        (n, d) = (d, n);
                     }
 
                     d -= n; // Here v >= u.
@@ -67,13 +65,14 @@ public struct RationalNumber
             return gcd.Value;
         }
     }
+
     public RationalNumber(int numerator, int denominator)
     {
         if (denominator == 0)
             throw new ArgumentException($"{denominator} cannot be zero.");
         this.numerator = numerator;
         this.denominator = denominator;
-        this.gcd = null;
+        gcd = null;
     }
 
     public static RationalNumber operator +(RationalNumber r1, RationalNumber r2)
@@ -84,7 +83,7 @@ public struct RationalNumber
         => new RationalNumber(r1.Numerator * r2.Numerator, r1.Denominator * r2.Denominator).Reduce();
     public static RationalNumber operator /(RationalNumber r1, RationalNumber r2)
         => new RationalNumber(r1.Numerator * r2.Denominator, r1.Denominator * r2.Numerator).Reduce();
-    public RationalNumber Abs()
+    public readonly RationalNumber Abs()
         => new RationalNumber(Math.Abs(numerator), Math.Abs(denominator)).Reduce();
     public RationalNumber Reduce()
     {
@@ -95,8 +94,14 @@ public struct RationalNumber
         }
         return new RationalNumber(numerator / GCD, denominator / GCD);
     }
-    public RationalNumber Exprational(int power)
-        => new RationalNumber((int)Math.Pow(numerator, power), (int)Math.Pow(denominator, power));
-    public double Expreal(int baseNumber)
-        => Math.Pow(baseNumber, (double)numerator / denominator);
+    public readonly RationalNumber Exprational(int power) =>
+        power switch
+        {
+            >= 0 => new((int)Math.Pow(numerator, power), (int)Math.Pow(denominator, power)),
+            _ when power % 2 == 0 => new((int)Math.Pow(denominator, -power), (int)Math.Pow(numerator, -power)),
+            _ => new(-(int)Math.Pow(denominator, -power), -(int)Math.Pow(numerator, -power)),
+        };
+
+    public readonly double Expreal(int baseNumber) => Math.Pow(baseNumber, (double)numerator / denominator);
+
 }
