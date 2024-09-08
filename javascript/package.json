@@ -1,12 +1,6 @@
 {
   "name": "javascript",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest ./*",
-    "watch": "jest --watch ./*",
-    "lint": "eslint ."
-  },
   "keywords": [],
   "author": "",
   "license": "MIT",
