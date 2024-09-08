@@ -1,0 +1,55 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  testCSharp:
+    name: Test C# excercises
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./csharp
+    - name: Build
+      run: dotnet build ./csharp --no-restore
+    - name: Test
+      run: dotnet test ./csharp --no-build --verbosity normal
+
+  testJavaScript:
+    name: Test JavaScript excercises
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: cd javascript/
+    - name: Run npm in subfolders
+      run: |
+          for dir in $(find . -type d -name 'node_modules' -prune -o -type d -print); do
+          if [ -f "$dir/package.json" ]; then
+              echo "Running npm install in $dir"
+              (cd "$dir" && npm ci && npm run build --if-present && npm test)
+          fi
+          done
