@@ -45,12 +45,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: javascript/package-lock.json
-    - name: Run npm test in subfolders
+    - name: Run npm test in exercise folders
       run: |
           cd javascript/
           for dir in $(find . -type d -name 'node_modules' -prune -o -type d -print); do
           if [ -f "$dir/package.json" ]; then
               echo "Running npm install in $dir"
-              (cd "$dir" && npm ci && npm run build --if-present && npm test)
+              (cd "$dir" && npm i && npm run build --if-present && npm test)
           fi
           done
