@@ -109,6 +109,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triangle", "triangle\Triang
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoFer", "two-fer\TwoFer.csproj", "{14F4AAEA-FFCE-4DD3-9BA7-D4083EB0D153}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliudsEggs", "eliuds-eggs\EliudsEggs.csproj", "{158AB1AB-C1E7-4271-99DE-CA90830AC963}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -327,6 +329,10 @@ Global
 		{14F4AAEA-FFCE-4DD3-9BA7-D4083EB0D153}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14F4AAEA-FFCE-4DD3-9BA7-D4083EB0D153}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14F4AAEA-FFCE-4DD3-9BA7-D4083EB0D153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{158AB1AB-C1E7-4271-99DE-CA90830AC963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{158AB1AB-C1E7-4271-99DE-CA90830AC963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{158AB1AB-C1E7-4271-99DE-CA90830AC963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{158AB1AB-C1E7-4271-99DE-CA90830AC963}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

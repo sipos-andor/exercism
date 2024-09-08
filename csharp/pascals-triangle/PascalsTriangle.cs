@@ -5,7 +5,7 @@ using System.Linq;
 public static class PascalsTriangle
 {
     public static IEnumerable<IEnumerable<int>> Calculate(int rows)
-        => Enumerable.Range(1, rows).Select(row => Row(row));
+        => Enumerable.Range(1, rows).Select(Row);
 
     static IEnumerable<int> Row(int row)
     {
