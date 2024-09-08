@@ -85,7 +85,7 @@ public struct RationalNumber
     public static RationalNumber operator /(RationalNumber r1, RationalNumber r2)
         => new RationalNumber(r1.Numerator * r2.Denominator, r1.Denominator * r2.Numerator).Reduce();
     public RationalNumber Abs()
-        => new RationalNumber(Math.Abs(numerator), Math.Abs(denominator));
+        => new RationalNumber(Math.Abs(numerator), Math.Abs(denominator)).Reduce();
     public RationalNumber Reduce()
     {
         if (denominator < 0)
