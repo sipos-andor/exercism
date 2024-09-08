@@ -1,8 +1,8 @@
 {
   "name": "javascript",
   "version": "1.0.0",
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "description": ""
+  "scripts": {
+    "test": "echo \"Warning: no test specified\""
+  },
+  "keywords": []
 }
