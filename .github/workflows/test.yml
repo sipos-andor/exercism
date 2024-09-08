@@ -39,12 +39,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - run: cd javascript/
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: cd javascript/
     - name: Run npm in subfolders
       run: |
           for dir in $(find . -type d -name 'node_modules' -prune -o -type d -print); do
