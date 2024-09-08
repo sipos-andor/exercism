@@ -2,12 +2,12 @@
 $rootFolder = "."
 
 # Get all subfolders of the root folder
-$subfolders = Get-ChildItem -Path $rootFolder -Directory | Where-Object { -not $_.Attributes -band [System.IO.FileAttributes]::Hidden -and -not $_.Name.StartsWith(".") }
+$subfolders = Get-ChildItem -Path $rootFolder -Directory | Where-Object { -not $_.Name.StartsWith(".") }
 
 # Iterate through each subfolder
 foreach ($subfolder in $subfolders) {
     # Get all subfolders of the current subfolder
-    $subSubfolders = Get-ChildItem -Path $subfolder.FullName -Directory
+    $subSubfolders = Get-ChildItem -Path $subfolder.FullName -Directory | Where-Object { -not $_.Name.StartsWith(".") }
 
     # Iterate through each sub-subfolder
     foreach ($subSubfolder in $subSubfolders) {
