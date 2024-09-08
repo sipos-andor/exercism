@@ -5,7 +5,7 @@ using System.Linq;
 public static class CryptoSquare
 {
     public static string NormalizedPlaintext(string plaintext) =>
-        plaintext.ToLowerInvariant().Replace(" ", "").Replace(",", "").Replace(".", "").Replace("!", "").Replace("@", "").Replace("%", "");
+        new(plaintext.ToLowerInvariant().Where(char.IsLetterOrDigit).ToArray());
 
     public static IEnumerable<string> PlaintextSegments(string plaintext)
     {
@@ -15,13 +15,12 @@ public static class CryptoSquare
         }
         var normalized = NormalizedPlaintext(plaintext);
 
-        var cols = (int)Math.Ceiling(Math.Sqrt(normalized.Length));
-        var rows = (int)Math.Ceiling((double)normalized.Length / cols);
+        var rows = Rows(normalized.Length);
+        var cols = Cols(normalized.Length);
 
         var missing = cols * rows - normalized.Length;
         normalized += new string(' ', missing);
-        return Enumerable.Range(0, rows)
-            .Select(i => normalized.Substring(i * cols, Math.Min(cols, normalized.Length - i * rows)));
+        return Enumerable.Range(0, rows).Select(i => normalized.Substring(i * cols, Math.Min(cols, normalized.Length - i * rows)));
     }
 
     public static string Encoded(string plaintext)
@@ -48,13 +47,12 @@ public static class CryptoSquare
     public static string Ciphertext(string plaintext)
     {
         var encoded = Encoded(plaintext);
-        var cols = (int)Math.Ceiling(Math.Sqrt(encoded.Length));
-        var rows = (int)Math.Ceiling((double)encoded.Length / cols);
+        var rows = Rows(encoded.Length);
 
-        var cipherSegments = Enumerable.Range(0, cols).Select(i => encoded.Substring(i * rows, Math.Min(rows, encoded.Length - i * rows)));
-        var ciphertext = string.Join(" ", cipherSegments);
-
-        return ciphertext;
+        return string.Join(" ",
+            Enumerable.Range(0, Cols(encoded.Length)).Select(i => encoded.Substring(i * rows, Math.Min(rows, encoded.Length - i * rows))));
     }
 
+    private static int Cols(int length) => (int)Math.Ceiling(Math.Sqrt(length));
+    private static int Rows(int length) => (int)Math.Ceiling((double)length / Cols(length));
 }
