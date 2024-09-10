@@ -14,7 +14,7 @@ public static class PigLatin
                          let firstY = word.IndexOf("y")
                          select word switch
                          {
-                             _ when vowels.Any(word.StartsWith) || pigLetters.Any(word.StartsWith) => word + "ay",
+                             _ when vowels.Any(word.StartsWith) || pigLetters.Any(word.StartsWith) => $"{word}ay",
                              _ when firstQu >= 0 && (firstQu < firstVowel) => string.Concat(word.AsSpan(firstQu + 2), word.AsSpan(0, firstQu + 2), "ay"),
                              _ when firstY > 0 && (firstY < firstVowel) => string.Concat(word.AsSpan(firstY), word.AsSpan(0, firstY), "ay"),
                              _ when firstVowel > 0 => string.Concat(word.AsSpan(firstVowel), word.AsSpan(0, firstVowel), "ay"),
